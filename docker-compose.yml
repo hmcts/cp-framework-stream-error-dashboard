@@ -6,7 +6,9 @@ services:
     ports:
       - "8081:80"
     environment:
-      - BACKEND_URL=http://host.docker.internal:8080/cakeshop-service
+      #- BACKEND_URL=http://host.docker.internal:8082/usersgroups-service
+      #- BACKEND_URL=http://host.docker.internal:8080/cakeshop-service
+      - BACKEND_URL=https://steccm51.ingress01.dev.nl.cjscp.org.uk/usersgroups-service
     volumes:
       - ./index.html:/usr/share/nginx/html/index.html
       - ./main.js:/usr/share/nginx/html/main.js

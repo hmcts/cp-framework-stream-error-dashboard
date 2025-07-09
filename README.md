@@ -34,11 +34,13 @@ This project is a static dashboard for viewing stream errors, served via Docker 
      $(docker build -q -t stream-error-dashboard .)
    ```
    - The dashboard will be available at [http://localhost:8081](http://localhost:8081)
-   - If you do **not** supply `BACKEND_URL`, the container will fail to start and print an error message.
+   - If you do **not** supply `BACKEND_URL`, the container will fail to start and print an error `message.
 
 ## Customizing BACKEND_URL
 
-You can point the dashboard to any backend by changing the `BACKEND_URL` value in either the compose file or the `docker run` command.
+* You can point the dashboard to any backend by changing the `BACKEND_URL` value in either the compose file or the `docker run` command.
+* Please note that when port forwarding is done, BACKEND_URL should point to host machine using reserved variable `host.docker.internal` and `localhost` will not work, i.e. `BACKEND_URL=http://host.docker.internal:8082/some-service` 
+
 
 ## Development
 
