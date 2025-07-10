@@ -1,5 +1,5 @@
 //orchestrates event bindings and high-level flow and depends on other js modules
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 10;
 let lastTableOptions = null;
 let lastTableHeading = '';
 let originalTableData = null;
@@ -152,7 +152,8 @@ $(document).ready(function() {
         fetchErrorDetails(errorId).done(function(data) {
             lastTableOptions = { errorDetails: true };
             lastTableHeading = 'Error Details';
-            renderErrorDetailsTable(data, lastTableHeading);
+            originalTableData = Array.isArray(data) ? data : [data];
+            renderErrorDetailsTable(originalTableData, lastTableHeading);
             showBackLink(hasBack());
             hideLoader();
         }).fail(function() {
