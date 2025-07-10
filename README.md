@@ -45,3 +45,21 @@ This project is a static dashboard for viewing stream errors, served via Docker 
 ## Development
 
 You can also run the dashboard locally by opening `index.html` in your browser, but AJAX calls may be blocked by CORS unless your backend allows it. 
+
+## Using Wiremock for Backend Stubbing
+
+1. Wiremock mappings and fixtures are under the `wiremock/` directory in this project:
+   - `wiremock/mappings/` for stub mapping JSON files
+   - `wiremock/__files/` for response files
+2. Run:
+   ```sh
+   docker compose --profile wiremock up --build --remove-orphans
+   ```
+   This will:
+   - Start Wiremock on port 9000
+   - Set `BACKEND_URL` to `http://wiremock/stubbed-service` for the dashboard
+   - Use mappings that match `/stubbed-service/...`
+
+You can add or edit mappings in `wiremock/mappings/` and response files in `wiremock/__files/`. 
+
+NOTE: To run the dashboard against wiremock backend it can only be done through docker compose, if one want to use plain docker run command then wiremock has to be managed independently either as separate docker container or as a process on the host

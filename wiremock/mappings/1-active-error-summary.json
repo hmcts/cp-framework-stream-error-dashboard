@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/stubbed-service/internal/errors/active-summary"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "1-active-error-summary.json"
+  }
+} 

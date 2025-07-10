@@ -1,5 +1,3 @@
-// filter.js
-
 function filterTableData(data, searchValue, options = {}) {
     if (!searchValue) return data;
     const lower = searchValue.toLowerCase();
