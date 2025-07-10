@@ -80,6 +80,7 @@ $(document).ready(function() {
     // Back link handler
     $('#back-link').on('click', function(e) {
         e.preventDefault();
+        $('#table-search').val(''); // Clear the search box
         if (hasBack()) {
             const prevNav = popNavigation();
             loadTableFromNav(prevNav);
@@ -89,6 +90,7 @@ $(document).ready(function() {
     // Hash link (Active Error Summary → Streams for Error Hash)
     $('#table-container').on('click', '.hash-link', function(e) {
         e.preventDefault();
+        $('#table-search').val(''); // Clear the search box
         const hash = $(this).data('hash');
         setCurrentHash(hash);
         pushNavigation({
@@ -115,6 +117,7 @@ $(document).ready(function() {
     // Stream link (Active Error Summary → Streams for Error Hash → Errors for Stream)
     $('#table-container').on('click', '.stream-link', function(e) {
         e.preventDefault();
+        $('#table-search').val(''); // Clear the search box
         const streamId = $(this).data('streamid');
         pushNavigation({
             url: '/internal/streams?errorHash=' + encodeURIComponent(getCurrentHash() || ''),
@@ -141,6 +144,7 @@ $(document).ready(function() {
     // Error link (Active Error Summary → Streams for Error Hash → Errors for Stream → Error Details)
     $('#table-container').on('click', '.error-link', function(e) {
         e.preventDefault();
+        $('#table-search').val(''); // Clear the search box
         const streamId = $(this).data('streamid');
         const errorId = $(this).data('errorid');
         pushNavigation({
