@@ -71,12 +71,6 @@ $(document).ready(function() {
         hideLoader();
     });
 
-    // Home link handler
-    $('#home-link').on('click', function(e) {
-        e.preventDefault();
-        location.reload();
-    });
-
     // Back link handler
     $('#back-link').on('click', function(e) {
         e.preventDefault();
