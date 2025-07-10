@@ -10,6 +10,6 @@ function fetchStreamsForStreamId(streamId) {
     return $.getJSON('/internal/streams?streamId=' + encodeURIComponent(streamId));
 }
 
-function fetchErrorDetails(streamId) {
-    return $.getJSON('/internal/stream-errors?streamId=' + encodeURIComponent(streamId));
+function fetchErrorDetails(errorId) {
+    return $.getJSON('/internal/stream-errors?errorId=' + encodeURIComponent(errorId));
 } 
