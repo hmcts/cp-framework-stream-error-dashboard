@@ -1,6 +1,3 @@
-// ui.js
-
-// Loader
 function showLoader() {
     $('#loader').show();
 }
@@ -44,7 +41,6 @@ function renderTable(data, options = {}) {
 function renderErrorDetailsTable(data, heading = 'Error Details') {    
     $('#table-heading').text(heading);
 
-    // Consistent "no data" message
     if (!Array.isArray(data) || data.length === 0) {
         $('#table-container').html('<p>No data available.</p>');
         return;
@@ -123,7 +119,7 @@ function updatePaginationControls(totalItems, currentPage, pageSize) {
     const end = Math.min(currentPage * pageSize, totalItems);
     $('#prev-page').prop('disabled', currentPage <= 1);
     $('#next-page').prop('disabled', currentPage >= totalPages);
-    $('#page-info').text(`Page ${currentPage} of ${totalPages} (${start}-${end} of ${totalItems})`);
+    $('#page-info').text(`Page ${currentPage} of ${totalPages} (${start}-${end} of ${totalItems} entries)`);
 }
 
 // Search count
