@@ -1,5 +1,5 @@
 //orchestrates event bindings and high-level flow and depends on other js modules
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 5;
 let lastTableOptions = null;
 let lastTableHeading = '';
 let originalTableData = null;
@@ -86,7 +86,7 @@ $(document).ready(function() {
         }
     });
 
-    // Hash link (error summary → streams)
+    // Hash link (Active Error Summary → Streams for Error Hash)
     $('#table-container').on('click', '.hash-link', function(e) {
         e.preventDefault();
         const hash = $(this).data('hash');
@@ -112,7 +112,7 @@ $(document).ready(function() {
         });
     });
 
-    // Stream link (streams → errors for stream)
+    // Stream link (Active Error Summary → Streams for Error Hash → Errors for Stream)
     $('#table-container').on('click', '.stream-link', function(e) {
         e.preventDefault();
         const streamId = $(this).data('streamid');
@@ -138,7 +138,7 @@ $(document).ready(function() {
         });
     });
 
-    // Error link (errors for stream → error details)
+    // Error link (Active Error Summary → Streams for Error Hash → Errors for Stream → Error Details)
     $('#table-container').on('click', '.error-link', function(e) {
         e.preventDefault();
         const streamId = $(this).data('streamid');
@@ -149,10 +149,10 @@ $(document).ready(function() {
             options: { errorIdLink: true }
         });
         showLoader();
-        fetchErrorDetails(streamId).done(function(data) {
+        fetchErrorDetails(errorId).done(function(data) {
             lastTableOptions = { errorDetails: true };
             lastTableHeading = 'Error Details';
-            renderErrorDetailsTable(data);
+            renderErrorDetailsTable(data, lastTableHeading);
             showBackLink(hasBack());
             hideLoader();
         }).fail(function() {
@@ -171,7 +171,7 @@ $(document).ready(function() {
         paginatedData = filtered;
         currentPage = 1;
         if (lastTableOptions && lastTableOptions.errorDetails) {
-            renderErrorDetailsTable(filtered);
+            renderErrorDetailsTable(filtered, lastTableHeading);
         } else {
             renderTableWithHeading(lastTableHeading, filtered, lastTableOptions || {});
         }
@@ -183,7 +183,7 @@ $(document).ready(function() {
         if (currentPage > 1 && paginatedData) {
             currentPage--;
             if (lastTableOptions && lastTableOptions.errorDetails) {
-                renderErrorDetailsTable(paginatedData);
+                renderErrorDetailsTable(paginatedData, lastTableHeading);
             } else {
                 renderTable(getPaginatedData(paginatedData, currentPage, PAGE_SIZE), lastTableOptions || {});
             }
@@ -196,7 +196,7 @@ $(document).ready(function() {
             if (currentPage < totalPages) {
                 currentPage++;
                 if (lastTableOptions && lastTableOptions.errorDetails) {
-                    renderErrorDetailsTable(paginatedData);
+                    renderErrorDetailsTable(paginatedData, lastTableHeading);
                 } else {
                     renderTable(getPaginatedData(paginatedData, currentPage, PAGE_SIZE), lastTableOptions || {});
                 }

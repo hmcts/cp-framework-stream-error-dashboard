@@ -41,7 +41,10 @@ function renderTable(data, options = {}) {
 }
 
 // Error details table rendering (special fields, stack trace, etc.)
-function renderErrorDetailsTable(data) {
+function renderErrorDetailsTable(data, heading = 'Error Details') {
+    // Update the table heading
+    $('#table-heading').text(heading);
+    
     const fields = [
         'streamErrorDetails.hash',
         'streamErrorDetails.exceptionMessage',
