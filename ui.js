@@ -41,10 +41,15 @@ function renderTable(data, options = {}) {
 }
 
 // Error details table rendering (special fields, stack trace, etc.)
-function renderErrorDetailsTable(data, heading = 'Error Details') {
-    // Update the table heading
+function renderErrorDetailsTable(data, heading = 'Error Details') {    
     $('#table-heading').text(heading);
-    
+
+    // Consistent "no data" message
+    if (!Array.isArray(data) || data.length === 0) {
+        $('#table-container').html('<p>No data available.</p>');
+        return;
+    }
+
     const fields = [
         'streamErrorDetails.hash',
         'streamErrorDetails.exceptionMessage',
