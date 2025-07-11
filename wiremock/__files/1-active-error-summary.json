@@ -1,0 +1,102 @@
+[
+    {
+        "hash": "b9cc7f7cf622a5c6a3bfd5de97da54223ce52d2ea13b038b56d7c105",
+        "exceptionClassname": "javax.persistence.PersistenceException",
+        "causeClassname": "org.postgresql.util.PSQLException",
+        "javaClassname": "uk.gov.justice.services.persistence.EntityManagerFlushInterceptor",
+        "javaMethod": "process",
+        "javaLineNumber": 20,
+        "affectedStreamsCount": 1,
+        "affectedEventsCount": 0
+    },
+    {
+        "hash": "b9cc7f7cf622a5c6a3bfd5de97da54223ce52d2ea13b038b56d7c106",
+        "exceptionClassname": "javax.persistence.PersistenceException1",
+        "causeClassname": "org.postgresql.util.PSQLException1",
+        "javaClassname": "uk.gov.justice.services.persistence.EntityManagerFlushInterceptor1",
+        "javaMethod": "process1",
+        "javaLineNumber": 1,
+        "affectedStreamsCount": 1,
+        "affectedEventsCount": 0
+    },
+    {
+        "hash": "b9cc7f7cf622a5c6a3bfd5de97da54223ce52d2ea13b038b56d7c112",
+        "exceptionClassname": "javax.persistence.PersistenceException2",
+        "causeClassname": "org.postgresql.util.PSQLException2",
+        "javaClassname": "uk.gov.justice.services.persistence.EntityManagerFlushInterceptor2",
+        "javaMethod": "process2",
+        "javaLineNumber": 2,
+        "affectedStreamsCount": 0,
+        "affectedEventsCount": 0
+    },
+    {
+        "hash": "b9cc7f7cf622a5c6a3bfd5de97da54223ce52d2ea13b038b56d7c113",
+        "exceptionClassname": "javax.persistence.PersistenceException3",
+        "causeClassname": "org.postgresql.util.PSQLException3",
+        "javaClassname": "uk.gov.justice.services.persistence.EntityManagerFlushInterceptor3",
+        "javaMethod": "process3",
+        "javaLineNumber": 3,
+        "affectedStreamsCount": 0,
+        "affectedEventsCount": 0
+    },
+    {
+        "hash": "b9cc7f7cf622a5c6a3bfd5de97da54223ce52d2ea13b038b56d7c114",
+        "exceptionClassname": "javax.persistence.PersistenceException4",
+        "causeClassname": "org.postgresql.util.PSQLException4",
+        "javaClassname": "uk.gov.justice.services.persistence.EntityManagerFlushInterceptor4",
+        "javaMethod": "process4",
+        "javaLineNumber": 4,
+        "affectedStreamsCount": 0,
+        "affectedEventsCount": 0
+    },
+    {
+        "hash": "b9cc7f7cf622a5c6a3bfd5de97da54223ce52d2ea13b038b56d7c115",
+        "exceptionClassname": "javax.persistence.PersistenceException5",
+        "causeClassname": "org.postgresql.util.PSQLException5",
+        "javaClassname": "uk.gov.justice.services.persistence.EntityManagerFlushInterceptor5",
+        "javaMethod": "process5",
+        "javaLineNumber": 5,
+        "affectedStreamsCount": 0,
+        "affectedEventsCount": 0
+    },
+    {
+        "hash": "b9cc7f7cf622a5c6a3bfd5de97da54223ce52d2ea13b038b56d7c116",
+        "exceptionClassname": "javax.persistence.PersistenceException6",
+        "causeClassname": "org.postgresql.util.PSQLException6",
+        "javaClassname": "uk.gov.justice.services.persistence.EntityManagerFlushInterceptor6",
+        "javaMethod": "process6",
+        "javaLineNumber": 6,
+        "affectedStreamsCount": 0,
+        "affectedEventsCount": 0
+    },
+    {
+        "hash": "b9cc7f7cf622a5c6a3bfd5de97da54223ce52d2ea13b038b56d7c117",
+        "exceptionClassname": "javax.persistence.PersistenceException7",
+        "causeClassname": "org.postgresql.util.PSQLException7",
+        "javaClassname": "uk.gov.justice.services.persistence.EntityManagerFlushInterceptor7",
+        "javaMethod": "process7",
+        "javaLineNumber": 7,
+        "affectedStreamsCount": 0,
+        "affectedEventsCount": 0
+    },
+    {
+        "hash": "b9cc7f7cf622a5c6a3bfd5de97da54223ce52d2ea13b038b56d7c118",
+        "exceptionClassname": "javax.persistence.PersistenceException8",
+        "causeClassname": "org.postgresql.util.PSQLException8",
+        "javaClassname": "uk.gov.justice.services.persistence.EntityManagerFlushInterceptor8",
+        "javaMethod": "process8",
+        "javaLineNumber": 8,
+        "affectedStreamsCount": 0,
+        "affectedEventsCount": 0
+    },
+    {
+        "hash": "b9cc7f7cf622a5c6a3bfd5de97da54223ce52d2ea13b038b56d7c119",
+        "exceptionClassname": "javax.persistence.PersistenceException9",
+        "causeClassname": "org.postgresql.util.PSQLException9",
+        "javaClassname": "uk.gov.justice.services.persistence.EntityManagerFlushInterceptor9",
+        "javaMethod": "process9",
+        "javaLineNumber": 9,
+        "affectedStreamsCount": 0,
+        "affectedEventsCount": 0
+    }
+]

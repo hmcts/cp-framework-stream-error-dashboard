@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  dashboard:
+    build: .
+    image: stream-error-dashboard:latest
+    ports:
+      - "8081:80"
+    environment:
+      - BACKEND_URL=http://host.docker.internal:8080/cakeshop-service
+      #- BACKEND_URL=http://host.docker.internal:8082/usersgroups-service
+      #- BACKEND_URL=https://steccm51.ingress01.dev.nl.cjscp.org.uk/usersgroups-service
+    profiles: ["!wiremock"]
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html
+      - ./main.js:/usr/share/nginx/html/main.js
+      - ./api.js:/usr/share/nginx/html/api.js
+      - ./ui.js:/usr/share/nginx/html/ui.js
+      - ./navigation.js:/usr/share/nginx/html/navigation.js
+      - ./filter.js:/usr/share/nginx/html/filter.js 
+
+  dashboard-wiremock:
+    extends:
+      service: dashboard
+    environment:
+      - BACKEND_URL=http://host.docker.internal:9000/stubbed-service
+    profiles: ["wiremock"]
+
+  wiremock:
+    image: wiremock/wiremock:3.3.1
+    container_name: wiremock
+    ports:
+      - "9000:8080"
+    volumes:
+      - ./wiremock:/home/wiremock
+    command: ["--global-response-templating", "--verbose", "--root-dir", "/home/wiremock"]
+    profiles: ["wiremock"]
+    environment:
+      - WIREMOCK_OPTIONS=--port 8080

@@ -1,0 +1,134 @@
+[
+    {
+        "streamId": "6a710473-2af4-44a9-99f1-4c27632d5b41",
+        "position": 0,
+        "lastKnownPosition": 1,
+        "source": "service-1",
+        "component": "EVENT_LISTENER",
+        "updatedAt": "2025-07-08T13:49:47.741Z",
+        "upToDate": false,
+        "errorId": "852d3c86-2a77-4280-82c7-f18755c5e051",
+        "errorPosition": 1
+    },
+    {
+        "streamId": "6a710473-2af4-44a9-99f1-4c27632d5b41",
+        "position": 0,
+        "lastKnownPosition": 1,
+        "source": "service-11",
+        "component": "EVENT_LISTENER",
+        "updatedAt": "2025-07-08T13:49:47.741Z",
+        "upToDate": true,
+        "errorId": null,
+        "errorPosition": 1
+    },
+    {
+        "streamId": "6a710473-2af4-44a9-99f1-4c27632d5b41",
+        "position": 0,
+        "lastKnownPosition": 1,
+        "source": "service-12",
+        "component": "EVENT_LISTENER",
+        "updatedAt": "2025-07-08T13:49:47.741Z",
+        "upToDate": true,
+        "errorId": null,
+        "errorPosition": 1
+    },
+    {
+        "streamId": "6a710473-2af4-44a9-99f1-4c27632d5b41",
+        "position": 0,
+        "lastKnownPosition": 1,
+        "source": "service-13",
+        "component": "EVENT_LISTENER",
+        "updatedAt": "2025-07-08T13:49:47.741Z",
+        "upToDate": true,
+        "errorId": null,
+        "errorPosition": 1
+    },
+    {
+        "streamId": "6a710473-2af4-44a9-99f1-4c27632d5b41",
+        "position": 0,
+        "lastKnownPosition": 1,
+        "source": "service-14",
+        "component": "EVENT_LISTENER",
+        "updatedAt": "2025-07-08T13:49:47.741Z",
+        "upToDate": true,
+        "errorId": null,
+        "errorPosition": 1
+    },
+    {
+        "streamId": "6a710473-2af4-44a9-99f1-4c27632d5b41",
+        "position": 0,
+        "lastKnownPosition": 1,
+        "source": "service-15",
+        "component": "EVENT_LISTENER",
+        "updatedAt": "2025-07-08T13:49:47.741Z",
+        "upToDate": true,
+        "errorId": null,
+        "errorPosition": 1
+    },
+    {
+        "streamId": "6a710473-2af4-44a9-99f1-4c27632d5b41",
+        "position": 0,
+        "lastKnownPosition": 1,
+        "source": "service-2",
+        "component": "EVENT_LISTENER",
+        "updatedAt": "2025-07-08T13:49:47.741Z",
+        "upToDate": false,
+        "errorId": "852d3c86-2a77-4280-82c7-f18755c5e052",
+        "errorPosition": 1
+    },
+    {
+        "streamId": "6a710473-2af4-44a9-99f1-4c27632d5b41",
+        "position": 0,
+        "lastKnownPosition": 1,
+        "source": "service-3",
+        "component": "EVENT_LISTENER",
+        "updatedAt": "2025-07-08T13:49:47.741Z",
+        "upToDate": false,
+        "errorId": "852d3c86-2a77-4280-82c7-f18755c5e053",
+        "errorPosition": 1
+    },
+    {
+        "streamId": "6a710473-2af4-44a9-99f1-4c27632d5b41",
+        "position": 0,
+        "lastKnownPosition": 1,
+        "source": "service-4",
+        "component": "EVENT_LISTENER",
+        "updatedAt": "2025-07-08T13:49:47.741Z",
+        "upToDate": false,
+        "errorId": "852d3c86-2a77-4280-82c7-f18755c5e054",
+        "errorPosition": 1
+    },
+    {
+        "streamId": "6a710473-2af4-44a9-99f1-4c27632d5b41",
+        "position": 0,
+        "lastKnownPosition": 1,
+        "source": "service-5",
+        "component": "EVENT_LISTENER",
+        "updatedAt": "2025-07-08T13:49:47.741Z",
+        "upToDate": false,
+        "errorId": "852d3c86-2a77-4280-82c7-f18755c5e055",
+        "errorPosition": 1
+    },
+    {
+        "streamId": "6a710473-2af4-44a9-99f1-4c27632d5b41",
+        "position": 0,
+        "lastKnownPosition": 1,
+        "source": "service-6",
+        "component": "EVENT_LISTENER",
+        "updatedAt": "2025-07-08T13:49:47.741Z",
+        "upToDate": false,
+        "errorId": "852d3c86-2a77-4280-82c7-f18755c5e056",
+        "errorPosition": 1
+    },
+    {
+        "streamId": "6a710473-2af4-44a9-99f1-4c27632d5b41",
+        "position": 0,
+        "lastKnownPosition": 1,
+        "source": "service-7",
+        "component": "EVENT_LISTENER",
+        "updatedAt": "2025-07-08T13:49:47.741Z",
+        "upToDate": false,
+        "errorId": "852d3c86-2a77-4280-82c7-f18755c5e057",
+        "errorPosition": 1
+    }
+]

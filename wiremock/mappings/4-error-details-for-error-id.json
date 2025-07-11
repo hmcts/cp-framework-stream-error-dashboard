@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/stubbed-service/internal/stream-errors\\?errorId=.*"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "4-error-details-for-error-id.json"
+  }
+} 
