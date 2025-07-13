@@ -51,6 +51,15 @@ function createTableSection(tableId, heading, data, options = {}) {
     
     renderTableForSection(tableId, data, options);
     updatePaginationForSection(tableId, data.length, 1, PAGE_SIZE);
+    
+    // Smooth scroll to the newly created table section
+    const newSection = $(`#section-${tableId}`);
+    if (newSection.length > 0) {
+        newSection[0].scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+    }
 }
 
 function updateTableSection(tableId, data, options = {}) {
