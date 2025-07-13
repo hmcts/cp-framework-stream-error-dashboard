@@ -15,7 +15,6 @@ services:
       - ./main.js:/usr/share/nginx/html/main.js
       - ./api.js:/usr/share/nginx/html/api.js
       - ./ui.js:/usr/share/nginx/html/ui.js
-      - ./navigation.js:/usr/share/nginx/html/navigation.js
       - ./filter.js:/usr/share/nginx/html/filter.js 
 
   dashboard-wiremock:

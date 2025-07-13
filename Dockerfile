@@ -9,7 +9,6 @@ COPY index.html /usr/share/nginx/html/index.html
 COPY main.js /usr/share/nginx/html/main.js
 COPY api.js /usr/share/nginx/html/api.js
 COPY ui.js /usr/share/nginx/html/ui.js
-COPY navigation.js /usr/share/nginx/html/navigation.js
 COPY filter.js /usr/share/nginx/html/filter.js
 
 # Copy custom nginx config (if needed)
