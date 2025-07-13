@@ -13,16 +13,11 @@ This project is a static dashboard for viewing stream errors, served via Docker 
    ```sh
    docker compose up --build --remove-orphans
    ```
-   --build will always rebuild the image regardless if it's existence
+   NOTE: --build will always rebuild the image regardless if it's existence and it's recommended
 3. The dashboard will be available at [http://localhost:8081](http://localhost:8081)
 
 ## Build and Run with Docker Only
-
-1. Build the Docker image:
-   ```sh
-   docker build -t stream-error-dashboard .
-   ```
-2. Run the Docker container (you **must** supply the `BACKEND_URL` environment variable):
+Run the Docker container (you **must** supply the `BACKEND_URL` environment variable):
    ```sh
    docker run -e BACKEND_URL="http://host.docker.internal:8080/cakeshop-service" -p 8081:80 \
      -v $(pwd)/index.html:/usr/share/nginx/html/index.html \
