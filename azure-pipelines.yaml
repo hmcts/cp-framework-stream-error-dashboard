@@ -1,0 +1,31 @@
+name: CPP Docker image publish
+
+trigger: none
+
+pr:
+  - '*'
+
+parameters:
+  - name: RUN_RELEASE
+    type: boolean
+    default: false
+
+resources:
+  repositories:
+    - repository: cppAzureDevOpsTemplates
+      type: github
+      name: hmcts/cpp-azure-devops-templates
+      endpoint: 'hmcts'
+      ref: 'PEG-2105'
+
+pool:
+  name: "MDV-ADO-AGENT-AKS-01"
+  demands:
+    - identifier -equals centos8-j17
+
+stages:
+  - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
+      - template: pipelines/image-publish.yaml@cppAzureDevOpsTemplates
+        parameters:
+          serviceName: 'framework-stream-error-dashboard'
+          RUN_RELEASE: ${{ parameters.RUN_RELEASE }}
