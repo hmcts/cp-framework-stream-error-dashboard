@@ -25,7 +25,6 @@ Run the Docker container (you **must** supply the `BACKEND_URL` environment vari
      -v $(pwd)/filter.js:/usr/share/nginx/html/filter.js \
      -v $(pwd)/api.js:/usr/share/nginx/html/api.js \
      -v $(pwd)/ui.js:/usr/share/nginx/html/ui.js \
-     -v $(pwd)/navigation.js:/usr/share/nginx/html/navigation.js \
      $(docker build -q -t stream-error-dashboard .)
    ```
    - The dashboard will be available at [http://localhost:8081](http://localhost:8081)
