@@ -2,9 +2,6 @@ name: CPP Docker image publish
 
 trigger: none
 
-pr:
-  - '*'
-
 parameters:
   - name: RUN_RELEASE
     type: boolean
