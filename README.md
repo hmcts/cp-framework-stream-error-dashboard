@@ -3,8 +3,12 @@
 This project is a static dashboard for viewing stream errors, served via Docker and Nginx.
 
 ## Prerequisites
-- [Docker](https://www.docker.com/get-started) installed on your system
-- [Docker Compose](https://docs.docker.com/compose/) (for compose usage)
+- Please follow the [Docker Desktop installation guide](https://tools.hmcts.net/confluence/display/EI/Development+environment+setup+using+Docker+Desktop)
+- As mentioned in the above document, make sure that you login to ACR before running any docker commands, otherwise docker image will not be downloaded
+    ```sh
+        az login
+        az acr login -n crmdvrepo01
+    ```
 
 ## How to Run the Dashboard?
    ```sh
@@ -15,6 +19,7 @@ This project is a static dashboard for viewing stream errors, served via Docker 
 - Some of the valid BACKEND_URL values are:
    - `https://steccm51.ingress01.dev.nl.cjscp.org.uk/progression-service`
    - `http://host.docker.internal:8080/progression-service` (when port forward to a service is enabled)
+   - NOTE: `host.docker.internal` is the way to access host machine from within a docker container when using Docker Desktop. If you are on linux and using native docker command `localhost can be used instead
 - You can spin up multiple containers pointing to different BACKEND_URL, however each container should run on different port, for example:
    - `docker run -e BACKEND_URL="http://host.docker.internal:8080/usersgroups-service" -p 8082:80 crmdvrepo01.azurecr.io/hmcts/framework-stream-error-dashboard:latest`
    - `docker run -e BACKEND_URL="http://host.docker.internal:8080/listing-service" -p 8083:80 crmdvrepo01.azurecr.io/hmcts/framework-stream-error-dashboard:latest`
