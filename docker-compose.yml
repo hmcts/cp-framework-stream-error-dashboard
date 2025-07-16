@@ -11,11 +11,7 @@ services:
       - BACKEND_URL=https://steccm51.ingress01.dev.nl.cjscp.org.uk/usersgroups-service
     profiles: ["!wiremock"]
     volumes:
-      - ./index.html:/usr/share/nginx/html/index.html
-      - ./main.js:/usr/share/nginx/html/main.js
-      - ./api.js:/usr/share/nginx/html/api.js
-      - ./ui.js:/usr/share/nginx/html/ui.js
-      - ./filter.js:/usr/share/nginx/html/filter.js 
+      - ./static:/usr/share/nginx/html
 
   dashboard-wiremock:
     extends:

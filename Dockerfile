@@ -5,11 +5,7 @@ FROM nginx:alpine
 RUN apk add --no-cache gettext
 
 # Copy static files
-COPY index.html /usr/share/nginx/html/index.html
-COPY main.js /usr/share/nginx/html/main.js
-COPY api.js /usr/share/nginx/html/api.js
-COPY ui.js /usr/share/nginx/html/ui.js
-COPY filter.js /usr/share/nginx/html/filter.js
+COPY static/ /usr/share/nginx/html/
 
 # Copy custom nginx config (if needed)
 COPY nginx.conf /etc/nginx/nginx.conf
