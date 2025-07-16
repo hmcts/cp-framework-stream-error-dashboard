@@ -46,9 +46,9 @@ This project is a static dashboard for viewing stream errors, served via Docker 
 
 You can add or edit mappings in `wiremock/mappings/` and response files in `wiremock/__files/`.
 
-### How to publish a new image?
+### How to publish a new docker image?
 - [azure-pipelines.yaml](azure-pipelines.yaml) uses ADO pipeline template that builds and pushes the image to Azure Container Registry (ACR)
-- This pipeline need to be triggered manually by specifying branch name as input
+- [cp-framework-stream-error-dashboard](https://dev.azure.com/hmcts-cpp/cpp-apps/_build?definitionId=481&_a=summary) ADO pipeline need to be triggered manually by specifying branch name as input
 - Latest commit hash is used as image tag while publishing to ACR, `latest` tag also gets updated automatically
-- Image name: `crmdvrepo01.azurecr.io/hmcts/framework-stream-error-dashboard:latest`
-``
+- Image name with latest tag: `crmdvrepo01.azurecr.io/hmcts/framework-stream-error-dashboard:latest`
+- As ADO pipeline must be triggered manually, docker image is not going to be available for each git commit
