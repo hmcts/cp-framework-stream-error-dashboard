@@ -18,7 +18,7 @@ resources:
 pool:
   name: "MDV-ADO-AGENT-AKS-01"
   demands:
-    - identifier -equals centos8-j17
+    - identifier -equals centos8-j17 #It can be any agent pool that has Docker installed, no dependency on java
 
 stages:
   - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
