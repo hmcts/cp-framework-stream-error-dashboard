@@ -128,14 +128,87 @@ function renderRegularTableForSection(tableId, data, options = {}) {
     const currentPage = section ? section.currentPage : 1;
     const paginatedData = getPaginatedData(data, currentPage, pageSize);
     
-    const columns = options.columns || Object.keys(paginatedData[0] || {});
+    // Define custom column order for Active Error Summary table
+    let columns;
+    if (options.hashLink) {
+        // Custom order for Active Error Summary table
+        const customOrder = [
+            'hash',
+            'affectedStreamsCount',
+            'affectedEventsCount',
+            'javaClassname',
+            'javaMethod',
+            'javaLineNumber',
+            'exceptionClassname',
+            'causeClassname'
+        ];
+        // Filter to only include columns that exist in the data
+        columns = customOrder.filter(col => paginatedData[0] && paginatedData[0].hasOwnProperty(col));
+        // Add any remaining columns that weren't in the custom order
+        const remainingCols = Object.keys(paginatedData[0] || {}).filter(col => !customOrder.includes(col));
+        columns = columns.concat(remainingCols);
+    } else {
+        columns = options.columns || Object.keys(paginatedData[0] || {});
+    }
+
     let table = '<div class="table-responsive"><table class="table table-striped table-hover table-bordered align-middle">';
     table += '<thead class="table-info"><tr>';
     columns.forEach(col => {
-        table += `<th scope="col">${col}</th>`;
+        // Map column names for better display
+        let displayName = col;
+        let tooltipMessage = '';
+
+        if (col === 'hash') {
+            displayName = 'Error Hash';
+            tooltipMessage = 'Unique Error Tag used to group similar errors';
+        } else if (col === 'javaClassname') {
+            displayName = 'Error Location - Class';
+            tooltipMessage = 'This is location or java class or file name where the error has occured';
+        } else if (col === 'javaMethod') {
+            displayName = 'Error Location - Method';
+            tooltipMessage = 'The method within the java class where the error has occurred';
+        } else if (col === 'javaLineNumber') {
+            displayName = 'Error Location - Line No';
+            tooltipMessage = 'The line number where the error occurred';
+        } else if (col === 'affectedStreamsCount') {
+            displayName = 'Streams Affected';
+            tooltipMessage = 'No of Streams affected by this type of Error currently';
+        } else if (col === 'affectedEventsCount') {
+            displayName = 'Events Affected';
+            tooltipMessage = 'Total no of events accross all streams affected by this typ of Error';
+        } else if (col === 'exceptionClassname') {
+            tooltipMessage = 'The underlying system or lower level exception';
+        } else if (col === 'causeClassname') {
+            tooltipMessage = 'The cause of the underlying lower level exception';
+        } else if (col === 'streamId') {
+            displayName = 'Stream ID';
+        } else if (col === 'position') {
+            displayName = 'Position';
+        } else if (col === 'lastKnownPosition') {
+            displayName = 'Last Known Position';
+        } else if (col === 'source') {
+            displayName = 'Source/Service';
+        } else if (col === 'component') {
+            displayName = 'Component';
+        } else if (col === 'updatedAt') {
+            displayName = 'Updated At';
+        } else if (col === 'upToDate') {
+            displayName = 'Is Upto Date';
+        } else if (col === 'errorId') {
+            displayName = 'Error ID';
+        } else if (col === 'errorPosition') {
+            displayName = 'Error Position';
+        }
+
+        // Add information label with tooltip for Active Error Summary table
+        if (options.hashLink && tooltipMessage) {
+            table += `<th scope="col">${displayName} <span class="info-label" title="${tooltipMessage}">(?)</span></th>`;
+        } else {
+            table += `<th scope="col">${displayName}</th>`;
+        }
     });
     table += '</tr></thead><tbody>';
-    
+
     paginatedData.forEach(row => {
         table += '<tr>';
         columns.forEach(col => {
@@ -152,23 +225,23 @@ function renderRegularTableForSection(tableId, data, options = {}) {
         table += '</tr>';
     });
     table += '</tbody></table></div>';
-    
+
     container.html(table);
 }
 
 function renderErrorDetailsTableForSection(tableId, data) {
     const container = $(`.table-container[data-table-id="${tableId}"]`);
-    
+
     // Always hide pagination controls and search for error details
     $(`.pagination-controls[data-table-id="${tableId}"]`).hide();
     $(`.page-info[data-table-id="${tableId}"]`).text('');
     $(`.table-search[data-table-id="${tableId}"]`).closest('.row').hide();
-    
+
     if (!Array.isArray(data) || data.length === 0) {
         container.html('<p>No data available.</p>');
         return;
     }
-    
+
     const fields = [
         'streamErrorDetails.hash',
         'streamErrorDetails.exceptionMessage',
@@ -184,14 +257,14 @@ function renderErrorDetailsTableForSection(tableId, data) {
         'streamErrorHash.javaMethod',
         'streamErrorHash.javaLineNumber'
     ];
-    
+
     let table = '<div class="table-responsive"><table class="table table-striped table-hover table-bordered align-top">';
     table += '<thead class="table-info"><tr>';
     fields.forEach(f => {
         table += `<th scope="col">${f}</th>`;
     });
     table += '</tr></thead><tbody>';
-    
+
     data.forEach((row, rowIdx) => {
         table += '<tr>';
         fields.forEach((f, colIdx) => {
@@ -214,15 +287,45 @@ function renderErrorDetailsTableForSection(tableId, data) {
                 }
                 table += `</td>`;
             } else {
-                table += `<td class="align-top" style="word-break:break-all;">${value !== null ? value : ''}</td>`;
+                // Check if the value might be JSON and format it
+                let displayValue = value !== null ? value : '';
+                if (displayValue && typeof displayValue === 'string') {
+                    // Try to detect JSON content
+                    try {
+                        const trimmed = displayValue.trim();
+                        if ((trimmed.startsWith('{') && trimmed.endsWith('}')) ||
+                            (trimmed.startsWith('[') && trimmed.endsWith(']'))) {
+                            const parsed = JSON.parse(trimmed);
+                            const prettyJSON = JSON.stringify(parsed, null, 2);
+                            const uniqueId = `json-${tableId}-${rowIdx}-${colIdx}`;
+
+                            table += `<td class="align-top" style="word-break:break-all;">`;
+                            table += `<div class="json-content">`;
+                            table += `<div class="json-pretty" id="${uniqueId}-pretty">${prettyJSON}</div>`;
+                            table += `<div class="json-raw" id="${uniqueId}-raw" style="display:none;">${displayValue}</div>`;
+                            table += `<div class="mt-2">`;
+                            table += `<span class="json-toggle" onclick="toggleJSON('${uniqueId}')">Show Raw</span>`;
+                            table += `</div>`;
+                            table += `</div>`;
+                            table += `</td>`;
+                        } else {
+                            table += `<td class="align-top" style="word-break:break-all;">${displayValue}</td>`;
+                        }
+                    } catch (e) {
+                        // Not valid JSON, display as is
+                        table += `<td class="align-top" style="word-break:break-all;">${displayValue}</td>`;
+                    }
+                } else {
+                    table += `<td class="align-top" style="word-break:break-all;">${displayValue}</td>`;
+                }
             }
         });
         table += '</tr>';
     });
     table += '</tbody></table></div>';
-    
+
     container.html(table);
-    
+
     // Add expand/collapse handlers
     $(`.table-container[data-table-id="${tableId}"] .expand-stacktrace`).off('click').on('click', function(e) {
         e.preventDefault();
@@ -243,7 +346,7 @@ function updatePaginationForSection(tableId, totalItems, currentPage, pageSize) 
     const totalPages = Math.ceil(totalItems / pageSize);
     const start = (currentPage - 1) * pageSize + 1;
     const end = Math.min(currentPage * pageSize, totalItems);
-    
+
     $(`.prev-page[data-table-id="${tableId}"]`).prop('disabled', currentPage <= 1);
     $(`.next-page[data-table-id="${tableId}"]`).prop('disabled', currentPage >= totalPages);
     $(`.page-info[data-table-id="${tableId}"]`).text(`Page ${currentPage} of ${totalPages} (${start}-${end} of ${totalItems} entries)`);
@@ -256,6 +359,23 @@ function updateSearchCountForSection(tableId, showing, total, searchValue) {
         searchCountElement.text(`Showing ${showing} of ${total} results`);
     } else {
         searchCountElement.text('');
+    }
+}
+
+// JSON Pretty Print Functions
+function toggleJSON(uniqueId) {
+    const prettyElement = document.getElementById(uniqueId + '-pretty');
+    const rawElement = document.getElementById(uniqueId + '-raw');
+    const toggleElement = event.target;
+
+    if (prettyElement.style.display === 'none') {
+        prettyElement.style.display = 'block';
+        rawElement.style.display = 'none';
+        toggleElement.textContent = 'Show Raw';
+    } else {
+        prettyElement.style.display = 'none';
+        rawElement.style.display = 'block';
+        toggleElement.textContent = 'Show Pretty';
     }
 }
 

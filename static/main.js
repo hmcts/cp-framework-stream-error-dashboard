@@ -38,7 +38,7 @@ $(document).ready(function() {
         showLoader();
         fetchStreamsForHash(hash).done(function(data) {
             const tableId = getNextTableId();
-            createTableSection(tableId, 'Streams for Error Hash', data, { streamIdLink: true });
+            createTableSection(tableId, 'Streams affected by Error Hash', data, { streamIdLink: true });
             hideLoader();
         }).fail(function() {
             hideLoader();

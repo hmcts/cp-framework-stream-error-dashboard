@@ -72,24 +72,174 @@
         .btn:hover, button:hover {
             background: #a50d23;
         }
+
+        /* JSON Pretty Print Styles */
+        .json-content {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            white-space: pre-wrap;
+            word-break: break-word;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .json-toggle {
+            color: var(--uk-blue);
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .json-toggle:hover {
+            color: var(--uk-red);
+        }
+
+        .json-raw {
+            display: none;
+        }
+
+        .json-pretty {
+            display: block;
+        }
+
+        /* Information Label Styles */
+        .info-label {
+            color: white;
+            font-weight: bold;
+            cursor: help;
+            margin-left: 4px;
+            font-size: 0.9em;
+        }
+
+        .info-label:hover {
+            color: #ffcccc;
+        }
+
+        /* Tooltip enhancement */
+        th[title] {
+            position: relative;
+        }
+
+        th[title]:hover::after {
+            content: attr(title);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1000;
+            max-width: 300px;
+            word-wrap: break-word;
+        }
     </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center mt-3 mb-1" style="background-color: var(--uk-blue); color: var(--uk-white); padding: 1rem; border-radius: 0.5rem;">
-            <h1 class="my-2 text-center" style="color: var(--uk-white); margin: 0;">Accelerated Incident Management: Real Time Stream Error Dashboard</h1>
-            <span id="backend-url" class="text-end small" style="color: var(--uk-white);"></span>
-            <h4 class="my-2 text-center" style="color: var(--uk-white); margin: 0;">HMCTS - Platform Engineering </h4>
-        </div>
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mt-3 mb-1" style="background-color: var(--uk-blue); color: var(--uk-white); padding: 1rem; border-radius: 0.5rem;">
+        <h1 class="my-2 text-center" style="color: var(--uk-white); margin: 0;">Accelerated Incident Management: Real Time Stream Error Dashboard</h1>
+        <span id="backend-url" class="text-end small" style="color: var(--uk-white);"></span>
+        <h4 class="my-2 text-center" style="color: var(--uk-white); margin: 0;">HMCTS - Platform Engineering </h4>
     </div>
-    <div class="container">
-        <div id="tables-container">
-            <!-- Tables will be dynamically added here -->
-        </div>
+</div>
+<div class="container">
+    <div id="tables-container">
+        <!-- Tables will be dynamically added here -->
     </div>
-    <script src="api.js"></script>
-    <script src="ui.js"></script>
-    <script src="filter.js"></script>
-    <script src="main.js"></script>
+</div>
+<script src="api.js"></script>
+<script src="ui.js"></script>
+<script src="filter.js"></script>
+<script src="main.js"></script>
+
+<script>
+    // JSON Pretty Print Functionality
+    function formatJSONContent(content) {
+        if (!content || typeof content !== 'string') {
+            return content;
+        }
+
+        // Try to detect if content is JSON
+        let isJSON = false;
+        let parsedJSON = null;
+
+        try {
+            // Check if it starts with { or [ and try to parse
+            const trimmed = content.trim();
+            if ((trimmed.startsWith('{') && trimmed.endsWith('}')) ||
+                (trimmed.startsWith('[') && trimmed.endsWith(']'))) {
+                parsedJSON = JSON.parse(trimmed);
+                isJSON = true;
+            }
+        } catch (e) {
+            // Not valid JSON, return as is
+            isJSON = false;
+        }
+
+        if (isJSON && parsedJSON) {
+            const prettyJSON = JSON.stringify(parsedJSON, null, 2);
+            const uniqueId = 'json-' + Math.random().toString(36).substr(2, 9);
+
+            return `
+                <div class="json-content">
+                    <div class="json-pretty" id="${uniqueId}-pretty">${prettyJSON}</div>
+                    <div class="json-raw" id="${uniqueId}-raw">${content}</div>
+                    <div class="mt-2">
+                        <span class="json-toggle" onclick="toggleJSON('${uniqueId}')">Show Raw</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        return content;
+    }
+
+    function toggleJSON(uniqueId) {
+        const prettyElement = document.getElementById(uniqueId + '-pretty');
+        const rawElement = document.getElementById(uniqueId + '-raw');
+        const toggleElement = event.target;
+
+        if (prettyElement.style.display === 'none') {
+            prettyElement.style.display = 'block';
+            rawElement.style.display = 'none';
+            toggleElement.textContent = 'Show Raw';
+        } else {
+            prettyElement.style.display = 'none';
+            rawElement.style.display = 'block';
+            toggleElement.textContent = 'Show Pretty';
+        }
+    }
+
+    // Override the table cell rendering to include JSON formatting
+    const originalRenderErrorDetailsTableForSection = window.renderErrorDetailsTableForSection;
+    if (originalRenderErrorDetailsTableForSection) {
+        window.renderErrorDetailsTableForSection = function(tableId, data) {
+            // Call the original function first
+            originalRenderErrorDetailsTableForSection(tableId, data);
+
+            // Then apply JSON formatting to cells that might contain JSON
+            setTimeout(() => {
+                const container = $(`.table-container[data-table-id="${tableId}"]`);
+                container.find('td').each(function() {
+                    const cellContent = $(this).html();
+                    if (cellContent && typeof cellContent === 'string') {
+                        const formattedContent = formatJSONContent(cellContent);
+                        if (formattedContent !== cellContent) {
+                            $(this).html(formattedContent);
+                        }
+                    }
+                });
+            }, 100);
+        };
+    }
+</script>
 </body>
 </html> 
